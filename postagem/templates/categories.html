@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ cats }} Category </h1>
+
+
+<ul>
+      {% if category_posts %}
+            {% for post in category_posts %}
+                <li><a href="{% url 'detalhes' post.pk %}"> {{ post.title }}</a>
+
+                    - {{ post.author.first_name }}
+                    {{ post.author.last_name }} -
+                    {{ post.post_date }}<small>
+
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'update' post.pk %}">Edit</a>
+
+                            <a href="{% url 'delete_post' post.pk %}">Delete</a>
+                        {% endif %}
+                    </small>
+                    {{ post.author.email }}<br/>
+                {{ post.body|slice:"200"|safe }}
+            {% endfor %}
+
+        </ul>
+      {% else %}
+        <h2> Sorry this page doest not exit </h2>
+     {% endif %}
+{% endblock %}
