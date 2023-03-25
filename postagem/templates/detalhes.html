@@ -8,6 +8,13 @@
         {{ post.author.first_name}} -
         {{ post.post_date }}
 
+        {% if user.is_authenticated %}
+            {% if user.id == post.author.id %}
+                <a href="{% url 'update' post.pk %}">Edit</a>
+                <a href="{% url 'delete_post' post.pk %}">Delete</a>
+            {% endif %}
+        {% endif %}
+
     </small>
 
     <hr>
@@ -16,7 +23,6 @@
 
     <br><br>
      <a href="{% url 'home' %}" class="btn btn-secondary"> back</a>
-
 
 {% endblock %}
 
